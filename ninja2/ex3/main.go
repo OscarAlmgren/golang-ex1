@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func main() {
+
 	// array
 	var x [5]int
 	x[1] = 42
@@ -25,4 +26,11 @@ func main() {
 	for i := 0; i <= 4; i++ {
 		fmt.Println(i, xx[i])
 	}
+
+	xx = append(xx, 77, 88, 99)
+	fmt.Println(xx)
+
+	y := []int{1, 2, 3, 4, 5}
+	xx = append(xx, y...)
+	fmt.Println(xx)
 }
