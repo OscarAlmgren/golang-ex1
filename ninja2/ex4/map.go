@@ -11,15 +11,19 @@ func main() {
 		1:   "Mårten Sundmark",
 	}
 	fmt.Println("m:", m)
+
 	fmt.Println("\n== comma ok idiom ==")
 	_, ok := m[100]
 	fmt.Println("found:", ok)
+
 	fmt.Println("\n== add to map ==")
 	m[100] = "Marcus Molander"
+
 	fmt.Println("\n== range over m ==")
 	for k, v := range m {
 		fmt.Println("key:", k, "value:", v)
 	}
+
 	fmt.Println("\n== delete from map ==")
 	delete(m, 1)
 	fmt.Println(m)
