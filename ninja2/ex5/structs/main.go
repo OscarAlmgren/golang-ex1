@@ -39,7 +39,7 @@ func main() {
 		},
 		ltk: true,
 	}
-	// anonymous struct
+	// anonymous struct, use when you only need it at one place to be lean and mean
 	diplomat := struct {
 		first   string
 		last    string
