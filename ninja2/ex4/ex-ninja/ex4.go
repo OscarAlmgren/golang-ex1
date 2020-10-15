@@ -18,4 +18,7 @@ func main() {
 			fmt.Println("Interest:", interest)
 		}
 	}
+
+	// delete from map
+	delete(names, "Dr_No")
 }
