@@ -39,5 +39,15 @@ func main() {
 		},
 		ltk: true,
 	}
-	fmt.Println(p1, "\n", p2, "\n", sa)
+	// anonymous struct
+	diplomat := struct {
+		first   string
+		last    string
+		country string
+	}{
+		first:   "Andreas",
+		last:    "Bergman",
+		country: "Sverige",
+	}
+	fmt.Println(p1, "\n", p2, "\n", sa, "\n", diplomat)
 }
