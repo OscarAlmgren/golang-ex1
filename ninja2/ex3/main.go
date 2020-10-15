@@ -22,7 +22,7 @@ func main() {
 		fmt.Println(i, v)
 	}
 
-	// : operator for slicing slices
+	// : operator for slicing slices. slicing a slice
 	fmt.Println("== : operator command ==")
 	fmt.Println(xx[1:])  // start at this position
 	fmt.Println(xx[1:3]) // up to but not including 3rd position
