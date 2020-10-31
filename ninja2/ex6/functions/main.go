@@ -2,6 +2,16 @@ package main
 
 import "fmt"
 
+type person struct {
+	first string
+	last  string
+}
+
+type secretAgent struct {
+	person
+	ltk bool
+}
+
 func main() {
 	fmt.Println("Opening file x")
 	// defer to close file right before exit/return of function
@@ -21,6 +31,19 @@ func main() {
 
 	// variadic arguments
 	addInts(1, 2, 3, 4, 5)
+
+	sa1 := secretAgent{
+		person: person{"James", "Bond"},
+		ltk:    true,
+	}
+
+	// method in Go.
+	sa1.speak()
+}
+
+// receiver attaches function to any value of type in receiver. So each secretAgent gets function speak(). It's a method
+func (s secretAgent) speak() {
+	fmt.Println("I am", s.first, s.last)
 }
 
 // func (r receiver) identifier(parameter) (return(s)) { code ...}
