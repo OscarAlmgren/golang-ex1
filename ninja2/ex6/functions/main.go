@@ -39,11 +39,47 @@ func main() {
 
 	// method in Go.
 	sa1.speak()
+
+	p1 := person{
+		first: "Ida",
+		last:  "Almgren",
+	}
+
+	p1.speak()
+
+	barsk(sa1)
+	barsk(p1)
+
+	// conversion
 }
 
 // receiver attaches function to any value of type in receiver. So each secretAgent gets function speak(). It's a method
 func (s secretAgent) speak() {
 	fmt.Println("I am", s.first, s.last)
+}
+
+func (p person) speak() {
+	fmt.Println("I'm ", p.first, p.last)
+}
+
+/* an interface says, hey baby if you got this method, you're my type */
+// keyword identifier type(is interface).
+// A value can be of more than 1 type. sa1 is secretAgent type, but also sa1 is human type
+// interfaces allows for a value to be of more than 1 type as long as it has the same methods. (writers in io and http)
+type human interface {
+	speak()
+}
+
+// polymorphism and interfaces.
+func barsk(h human) {
+	fmt.Println("I called human", h)
+	// assertion h.(type) <- assertion
+	switch h.(type) {
+	case person:
+		fmt.Println("Case Person", h.(person).first)
+	case secretAgent:
+		fmt.Println("Case SecretAgent", h.(secretAgent).first)
+	}
 }
 
 // func (r receiver) identifier(parameter) (return(s)) { code ...}
