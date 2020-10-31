@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	fmt.Println("Opening file x")
+	// defer to close file right before exit/return of function
 	defer fmt.Println("Closeing file x")
 
 	// identifier
