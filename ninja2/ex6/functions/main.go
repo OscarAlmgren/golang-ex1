@@ -59,13 +59,26 @@ func main() {
 		fmt.Println("My first func expression")
 	} // run it
 	f()
+
+	// return a function from a function
+	g := returnFunc()
+	fmt.Printf("%T\n", g)
 }
 
-// receiver attaches function to any value of type in receiver. So each secretAgent gets function speak(). It's a method
+// func NAME() func() returnType
+func returnFunc() func() int {
+	return func() int {
+		return 451
+	}
+
+}
+
+// receiver attaches function to any value of that type in receiver. So each secretAgent gets function speak(). It's a method
 func (s secretAgent) speak() {
 	fmt.Println("I am", s.first, s.last)
 }
 
+// reciever is type person
 func (p person) speak() {
 	fmt.Println("I'm ", p.first, p.last)
 }
