@@ -50,7 +50,15 @@ func main() {
 	barsk(sa1)
 	barsk(p1)
 
-	// conversion
+	// anonymous func
+	func(x int) {
+		fmt.Println("X:", x)
+	}(10)
+
+	f := func() {
+		fmt.Println("My first func expression")
+	} // run it
+	f()
 }
 
 // receiver attaches function to any value of type in receiver. So each secretAgent gets function speak(). It's a method
@@ -62,7 +70,7 @@ func (p person) speak() {
 	fmt.Println("I'm ", p.first, p.last)
 }
 
-/* an interface says, hey baby if you got this method, you're my type */
+/* an interface says, hey baby if you got this method, you're also my type */
 // keyword identifier type(is interface).
 // A value can be of more than 1 type. sa1 is secretAgent type, but also sa1 is human type
 // interfaces allows for a value to be of more than 1 type as long as it has the same methods. (writers in io and http)
