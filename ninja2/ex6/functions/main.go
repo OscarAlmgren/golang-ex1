@@ -63,6 +63,9 @@ func main() {
 	// return a function from a function
 	g := returnFunc()
 	fmt.Printf("%T\n", g)
+
+	// func()() run func(no params..) and then execute with last ()
+	fmt.Println(returnFunc()())
 }
 
 // func NAME() func() returnType
