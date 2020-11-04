@@ -66,6 +66,32 @@ func main() {
 
 	// func()() run func(no params..) and then execute with last ()
 	fmt.Println(returnFunc()())
+
+	// callBack func - video 116
+
+	// closure limited to scope for funcs - video 117
+
+	// recurssion
+	fmt.Println(factorial(4))
+	fmt.Println(loopFactorial(3))
+}
+
+// recurssion using a loop
+func loopFactorial(n int) int {
+	total := 1
+	for ; n > 0; n-- { // no need for initial variable because we use the n from parameter as control
+		total *= n
+	}
+	return total
+}
+
+// recurssion
+func factorial(n int) int {
+	if n == 0 {
+		return 1
+	}
+	return n * factorial(n-1)
+
 }
 
 // func NAME() func() returnType
