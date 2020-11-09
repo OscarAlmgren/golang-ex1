@@ -25,4 +25,15 @@ func main() {
 
 	*b = 1991        // the pointer *b is set to 1991, being the same address as a. 0xc00001a090
 	fmt.Println(*&a) // the value stored at 0xc00001a090 (a) was therefor updated to 1991 when dereferenced
+
+	x := 0
+	foo(&x) // passing the address to the func
+	fmt.Println(x)
+}
+
+func foo(y *int) {
+	fmt.Println(*y)
+	*y = 43
+	fmt.Println(y)
+	fmt.Println(*y)
 }
