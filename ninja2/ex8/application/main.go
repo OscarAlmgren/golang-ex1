@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"sort"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 // ColorGroup is a struct
@@ -59,4 +61,20 @@ func main() {
 	fmt.Println(s)
 	sort.Strings(group.Colors) // sort Strings
 	fmt.Println(group.Colors)
+
+	password := "mittlösenord"
+	bs, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost) // bs = byte slice of hashed password
+	if err != nil {
+		fmt.Println("Err:", err)
+	}
+	fmt.Println(string(bs)) // convert bytestream to string and print
+	password = "mittnyalösenord"
+
+	compare := bcrypt.CompareHashAndPassword(bs, []byte(password))
+	if compare != nil {
+		fmt.Println("Err:", compare)
+		fmt.Println("You can't login")
+		return
+	}
+	fmt.Println("You're logged in")
 }
