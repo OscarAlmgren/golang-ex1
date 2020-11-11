@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"sort"
 )
 
 // ColorGroup is a struct
@@ -52,4 +53,10 @@ func main() {
 	for i, v := range animals {
 		fmt.Println("I:", i, " V:", v)
 	}
+
+	s := []int{5, 2, 6, 3, 1, 4}
+	sort.Ints(s) // sort Ints
+	fmt.Println(s)
+	sort.Strings(group.Colors) // sort Strings
+	fmt.Println(group.Colors)
 }
