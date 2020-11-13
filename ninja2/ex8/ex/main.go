@@ -54,4 +54,10 @@ func main() {
 		fmt.Println("Error:", err)
 	}
 	fmt.Printf("%+v\n", persons)
+	for _, v := range persons {
+		fmt.Println("Name:", v.First, v.Last, " Age:", v.Age)
+		for _, saying := range v.Sayings {
+			fmt.Println("Sayings:", saying)
+		}
+	}
 }
