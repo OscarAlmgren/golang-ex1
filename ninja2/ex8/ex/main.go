@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sort"
 )
 
 type user struct {
@@ -17,6 +18,20 @@ type person []struct {
 	Age     int      `json:"Age"`
 	Sayings []string `json:"Sayings"`
 }
+
+// SortByAge for person
+type SortByAge person
+
+func (a SortByAge) Len() int           { return len(a) }
+func (a SortByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a SortByAge) Less(i, j int) bool { return a[i].Age < a[j].Age }
+
+// SortByLast for person
+type SortByLast person
+
+func (a SortByLast) Len() int           { return len(a) }
+func (a SortByLast) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a SortByLast) Less(i, j int) bool { return a[i].Last < a[j].Last }
 
 func main() {
 	u1 := user{
@@ -67,7 +82,11 @@ func main() {
 
 	xi := []int{5, 8, 2, 43, 17, 987, 14, 12, 21, 1, 4, 2, 3, 93, 13}
 	fmt.Println(xi)
+	sort.Ints(xi)
+	fmt.Println(xi)
 
 	xs := []string{"random", "rainbow", "delights", "in", "torpedo", "summers", "under", "gallantry", "fragmented", "moons", "across", "magenta"}
+	fmt.Println(xs)
+	sort.Strings(xs)
 	fmt.Println(xs)
 }
