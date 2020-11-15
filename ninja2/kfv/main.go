@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"unsafe"
 )
 
 type broder struct {
@@ -26,7 +27,10 @@ func main() {
 	br1 := broder{1, "Mårten", "Sundmark", kmskkfv}
 	br93 := broder{93, "Andreas", "Bergman", k1klkfv}
 
+	fmt.Println("Br131:", unsafe.Sizeof(br131))
+
 	brothers := []broder{br131, br1, br93}
+	fmt.Println("Brothers:", unsafe.Sizeof(brothers), "len:", len(brothers), "cap:", cap(brothers))
 	fmt.Println(brothers)
 
 	bs, err := json.Marshal(brothers)
