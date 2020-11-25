@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
+	"time"
 
 	"oscaralmgren.com/oalmgren/microservicetest/handlers"
 )
@@ -16,17 +19,36 @@ func main() {
 	gh := handlers.NewGoodbye(l)
 
 	sm := http.NewServeMux()
-
 	sm.Handle("/", hh)
 	sm.Handle("/goodbye", gh)
 
-	// http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
+	s := &http.Server{
+		Addr:         ":9090",
+		Handler:      sm,
+		IdleTimeout:  120 * time.Second,
+		ReadTimeout:  1 * time.Second,
+		WriteTimeout: 1 * time.Second,
+	}
 
-	// })
+	// go routine goes peewww!
+	go func() {
+		err := s.ListenAndServe()
+		if err != nil {
+			l.Fatal(err)
+		}
+	}()
 
-	// http.HandleFunc("/goodbye", func(rw http.ResponseWriter, r *http.Request) {
-	// 	log.Println("Goodbye world")
-	// })
+	sigChan := make(chan os.Signal)
+	signal.Notify(sigChan, os.Interrupt)
+	signal.Notify(sigChan, os.Kill)
 
-	http.ListenAndServe(":9090", sm)
+	sig := <-sigChan
+
+	l.Println("Recieved terminate, graceful shutdown", sig)
+
+	tc, err := context.WithTimeout(context.Background(), 30*time.Second)
+	if err != nil {
+		l.Fatal(err)
+	}
+	s.Shutdown(tc)
 }
