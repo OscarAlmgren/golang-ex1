@@ -1,26 +1,32 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+
+	"oscaralmgren.com/oalmgren/microservicetest/handlers"
 )
 
 func main() {
 
-	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		log.Println("Hello world")
-		data, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			http.Error(rw, "Ooopla", http.StatusBadRequest)
-			// rw.WriteHeader(http.StatusBadRequest)
-			// rw.Write([]byte("Ooops"))
-			return
-		}
+	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
-		// log.Printf("Data %s", data)
-		fmt.Fprintf(rw, "Hello %s", data)
-	})
-	http.ListenAndServe(":8080", nil)
+	hh := handlers.NewHello(l)
+	gh := handlers.NewGoodbye(l)
+
+	sm := http.NewServeMux()
+
+	sm.Handle("/", hh)
+	sm.Handle("/goodbye", gh)
+
+	// http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
+
+	// })
+
+	// http.HandleFunc("/goodbye", func(rw http.ResponseWriter, r *http.Request) {
+	// 	log.Println("Goodbye world")
+	// })
+
+	http.ListenAndServe(":9090", sm)
 }
