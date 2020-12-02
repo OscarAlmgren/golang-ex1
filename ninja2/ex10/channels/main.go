@@ -16,9 +16,18 @@ func main() {
 
 	c := make(chan int)
 
-	go foo(c)
+	go func() {
+		for i := 0; i < 100; i++ {
+			c <- i
+		}
+		close(c)
+	}()
 
-	bar(c)
+	// go foo(c)
+
+	for y := range c {
+		fmt.Println(y)
+	}
 
 	fmt.Println("Exit")
 
@@ -26,10 +35,15 @@ func main() {
 
 // send
 func foo(c chan<- int) {
-	c <- 42
+
+	for i := 0; i < 100; i++ {
+		c <- i
+	}
+
+	close(c)
 }
 
-// receive
-func bar(c <-chan int) {
-	fmt.Println("Value:", <-c)
-}
+// // receive
+// func bar(c <-chan int) {
+// 	fmt.Println("Value:", <-c)
+// }
